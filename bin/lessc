@@ -14,6 +14,7 @@ var options = {
     optimization: 1,
     silent: false,
     paths: [],
+    linkedFiles: [],
     color: true,
     strictImports: false,
     rootpath: '',
@@ -52,6 +53,17 @@ args = args.filter(function (arg) {
         case 'strict-imports':
             options.strictImports = true;
             break;
+        case 'l':
+        case 'link-file':
+            if (!match[2]) {
+                sys.puts("link-file option requires a parameter");
+                continueProcessing = false;
+                break;
+            }
+
+            options.linkedFiles.push(path.resolve(process.cwd(), match[2]));
+            break;
+
         case 'h':
         case 'help':
             lessc_helper.printUsage();
@@ -129,6 +141,8 @@ var ensureDirectory = function (filepath) {
         fs.mkdirSync(dir);
     }
 };
+
+lessc_helper.linkFiles(less.tree, options.linkedFiles);
 
 var parseLessFile = function (e, data) {
     if (e) {
