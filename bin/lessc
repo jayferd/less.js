@@ -3,7 +3,8 @@
 var path = require('path'),
     fs = require('fs'),
     sys = require('util'),
-    os = require('os');
+    os = require('os'),
+    lessc_helper = require('../lib/less/lessc_helper');
 
 var less = require('../lib/less');
 var args = process.argv.slice(1);
@@ -53,7 +54,7 @@ args = args.filter(function (arg) {
             break;
         case 'h':
         case 'help':
-            require('../lib/less/lessc_helper').printUsage();
+            lessc_helper.printUsage();
             continueProcessing = false;
         case 'x':
         case 'compress':
@@ -116,7 +117,7 @@ if (output) {
 if (! input) {
     sys.puts("lessc: no input files");
     sys.puts("");
-    require('../lib/less/lessc_helper').printUsage();
+    lessc_helper.printUsage();
     currentErrorcode = 1;
     return;
 }
