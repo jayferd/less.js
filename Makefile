@@ -1,8 +1,13 @@
 #
 # Run all tests
 #
-test: 
+test: test-lessc
 	node test/less-test.js
+
+test-lessc:
+	@echo == Running lessc tests ==
+	./test/lessc/lessc-test.sh
+	@echo '=>' Passed lessc tests '<='
 
 #
 # Run benchmark
@@ -84,4 +89,4 @@ stable:
 	npm tag less ${VERSION} stable
 
 
-.PHONY: test benchmark
+.PHONY: test test-lessc benchmark
